@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h1 class="header1">Series Title: "{{ episodes|first.series.title }}" Season: {{ episodes|first.season }}</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Episode Number</th>
+            <th>Title</th>
+            <th>IMDb ID</th>
+            <th>Status</th>
+            <th>Episode Info</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for episode in episodes %}
+        <tr>
+            <td>{{ episode.episode }}</td>
+            <td>{{ episode.title ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</td>
+            <td>{{ episode.imdbId ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</td>
+            <td>{{ episode.status == constant('App\\TwigHelper\\TwigConstants::STATUS_ENTITY_MISSING') ?
+                constant('App\\TwigHelper\\TwigConstants::STATUS_MISSING') :
+                constant('App\\TwigHelper\\TwigConstants::STATUS_OK') }}</td>
+            <td><a href="{{ path('episode', {id: episode.id}) }}">Link</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="javascript:history.back()"><button class="btn btn-primary goBack">Go Back</button></a>
+{% endblock %}

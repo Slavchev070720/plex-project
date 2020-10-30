@@ -1,0 +1,13 @@
+.idea/
+#external_db/
+public/SQLiteUpload/plex.db
+volumes/
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+#analyse-command-log.txt
+###< symfony/framework-bundle ###

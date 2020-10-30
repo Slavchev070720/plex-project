@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <h1 class="header1">"{{ episode.series.title }}" S{{ episode.season }}E{{ episode.episode }}</h1>
+    <div class="container">
+        <div class="card">
+            <div class="row">
+                <aside class="col-sm-5 border-right">
+                    <img src="{{ episode.PosterUrl ?: asset('/images/missing.jpeg') }}" class="singleImg">
+                </aside>
+                <aside class="col-sm-7">
+                    <article class="card-body p-5">
+                        <h3 class="title mb-3">{{ episode.title }}</h3>
+                        <dl class="item-property">
+                            <dt>Description</dt>
+                            <dd><p class="description">{{ episode.Description ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</p></dd>
+                        </dl>
+                        <dl class="param param-feature">
+                            <dt>IMDb ID</dt>
+                            <dd>{{ episode.ImdbId ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Rating</dt>
+                            <dd>{{ episode.Rating ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Release Date</dt>
+                            <dd>{{ episode.ReleaseDate|date("m/d/Y") ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Audio Languages</dt>
+                            <dd>{{ episode.AudioLang ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Subtitle Languages</dt>
+                            <dd>{{ episode.SubtitleLang ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Status</dt>
+                            <dd>{{ episode.status == constant('App\\TwigHelper\\TwigConstants::STATUS_ENTITY_MISSING') ?
+                                constant('App\\TwigHelper\\TwigConstants::STATUS_MISSING') :
+                                constant('App\\TwigHelper\\TwigConstants::STATUS_OK') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                    </article> <!-- card-body.// -->
+                    <a href="javascript:history.back()"><button class="btn btn-primary">Go Back</button></a>
+                </aside> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
+    </div>
+{% endblock %}

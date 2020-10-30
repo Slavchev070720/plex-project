@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <h1 class="header1">"{{ serie.title}}"</h1>
+        <div class="card">
+            <div class="row">
+                <aside class="col-sm-5 border-right">
+                    <img src="{{ serie.PosterUrl ?: asset('/images/missing.jpeg') }}" class="singleImg">
+                </aside>
+                <aside class="col-sm-7">
+                    <article class="card-body p-5">
+                        <dl class="item-property">
+                            <dt>Description</dt>
+                            <dd><p class="description">{{ serie.Description ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</p></dd>
+                        </dl>
+                        <dl class="param param-feature">
+                            <dt>IMDb ID</dt>
+                            <dd>{{ serie.ImdbId ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Rating</dt>
+                            <dd>{{ serie.Rating ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Release Date</dt>
+                            <dd>{{ serie.ReleaseDate|date("m/d/Y") ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <a href="javascript:history.back()"><button class="btn btn-primary">Go Back</button></a>
+                    </article> <!-- card-body.// -->
+                </aside> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
+        <div class="seasonStatus">
+            <table class="table table-bordered">
+                <tbody>
+            {% for key, season in seasons %}
+                <tr>
+                    <td>Season: {{ key }}</td>
+                    <td>Status: {{ season }}</td>
+                    <td><a href="{{ path('season', {id: serie.id, season: key}) }}">Link</a></td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

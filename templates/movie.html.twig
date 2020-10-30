@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <h1 class="header1">"{{ movie.title}}"</h1>
+        <div class="card">
+            <div class="row">
+                <aside class="col-sm-5 border-right">
+                    <img src="{{ movie.PosterUrl ?: asset('/images/missing.jpeg') }}" class="singleImg">
+                </aside>
+                <aside class="col-sm-7">
+                    <article class="card-body p-5">
+                        <dl class="item-property">
+                            <dt>Description</dt>
+                            <dd><p class="description">{{ movie.Description ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</p></dd>
+                        </dl>
+                        <dl class="param param-feature">
+                            {{ form_start(form, {'attr': {'class': 'movie_form'}}) }}
+                            <dt>IMDb ID</dt>
+                            <dd>{{ form_row(form.imdb_id) }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Rating</dt>
+                            <dd>{{ movie.Rating ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Release Date</dt>
+                            <dd>{{ movie.ReleaseDate|date("m/d/Y") ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Audio Languages</dt>
+                            <dd>{{ movie.AudioLang ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Subtitle Languages</dt>
+                            <dd>{{ movie.SubtitleLang ?: constant('App\\TwigHelper\\TwigConstants::INFO_NOT_AVALABLE') }}</dd>
+                        </dl>  <!-- item-property-hor .// -->
+                        <dl class="param param-feature">
+                            <dt>Language Bulgarian Status {{ form_row(form.error_audio) }}</dt>
+                            {%  if movie.errorAudio == 1 %}
+                            <dd>{{ movie.Status == constant('App\\TwigHelper\\TwigConstants::STATUS_ENTITY_OK')?
+                                constant('App\\TwigHelper\\TwigConstants::STATUS_OK') :
+                                constant('App\\TwigHelper\\TwigConstants::STATUS_MISSING') }}
+                            </dd>
+                            {% elseif movie.errorAudio == 0 %}
+                            <dd>{{ constant('App\\TwigHelper\\TwigConstants::STATUS_OK') }}</dd>
+                            {% endif %}
+                        </dl>  <!-- item-property-hor .// -->
+                        <input type="submit" value="Edit" class="btn btn-primary">
+                        {{ form_end(form) }}
+                        <a href="javascript:history.back()"><button class="btn btn-primary">Go Back</button></a>
+                    </article> <!-- card-body.// -->
+                </aside> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
+    </div>
+{% endblock %}
+

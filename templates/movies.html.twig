@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <main class="container">
+        <section class="movies" id="movies">
+            <h1 class="header1">Movies({{ movies.getTotalItemCount }})</h1>
+            <div class="row">
+                {% for movie in movies %}
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <article class="card">
+                        <header class="title-header">
+                            <h3 class="title-header-h3">{{ movie.title }}</h3>
+                        </header>
+                        <div class="card-block">
+                            <div class="img-card">
+                                <img src="{{ movie.PosterUrl ?: asset('/images/missing.jpeg') }}" alt="Movie" class="w-100" />
+                            </div>
+                            <a href="{{ path('movie', {id: movie.id}) }}" class="btn btn-primary btn-block"><i class="fa fa-eye"></i> See Details</a>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(movies) }}
+            </div>
+        </section>
+    </main>
+{% endblock %}

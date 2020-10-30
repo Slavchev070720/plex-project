@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ parent() }}
+    <div class="form-container">
+        {{ form_start(form) }}
+        <h1 class="header1">Upload your sqlite file here</h1>
+        <div class="form-group">
+            {{ form_widget(form.sqlite, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <button type="submit" class="btn btn-primary"> Upload!</button>
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+        {{ form_end(form) }}
+        <a href="{{ path('analyse') }}"><button id="analyse" class="btn btn-primary"> Analyse!</button></a>
+    </div>
+{% endblock %}
